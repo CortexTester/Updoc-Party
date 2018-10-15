@@ -24,10 +24,12 @@ pipeline {
                 echo 'Testing..'
             }
         }
-        stage('push image') {         
-            script {
-                docker.withRegistry( ‘’, registryCredential ) {
-                dockerImage.push()
+        stage('push image') {    
+            steps {     
+                script {
+                    docker.withRegistry( ‘’, registryCredential ) {
+                        dockerImage.push()
+                    }
                 }
             }
         }
