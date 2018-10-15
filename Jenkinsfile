@@ -1,26 +1,35 @@
-node {
-    def   registry = 'tester8cortex/updoc-party'
-    def   registryCredential = 'dockerhub'
-    def   dockerImage = ''
+pipeline {
+    environment {
+        registry = "tester8cortex/updoc-party"
+        registryCredential = "dockerhub"
+        dockerImage = ""
+    }
+    agent any
 
-    stage('Cloning Git') {
-        checkout scm
-    }
-    stage('Build image') {
-        dockerImage = docker.build("${registry}")
-    }
-    stage('Test') {
-        echo 'Testing..'
-    }
-    stage('Push image') {
-        def PACKAGE_VERSION=sh (
-            script:'grep version package.json | cut -c 15- | rev | cut -c 3- |rev',
-            returnStdout: true
-        ).trim()            
-        script {
-            docker.withRegistry( ‘’, registryCredential ) {
-            dockerImage.push("${PACKAGE_VERSION}")
+    stages {
+        stage("Cloning Git") {
+            steps {
+                git  "https://github.com/CortexTester/Updoc-Party.git"
             }
         }
-    }    
+        stage('Build image') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":1.0.0" 
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('push image') {         
+            script {
+                docker.withRegistry( ‘’, registryCredential ) {
+                dockerImage.push()
+                }
+            }
+        }
+    }
 }
