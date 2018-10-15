@@ -1,0 +1,46 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+  - "8.11.1"
+python:
+  - "3.5"
+cache:
+  - pip
+  - npm
+install:
+  # Install any dependencies required for building your site here.
+  # `awscli` is required for invalidation of CloudFront distributions.
+  # - pip install --upgrade pip
+  # - pip install awscli
+
+script:
+  # Build your site (e.g., HTML, CSS, JS) here.
+  npm run build
+# deploy:
+#   - provider: s3
+#     access_key_id: $AWS_ACCESS_KEY_ID
+#     secret_access_key: $AWS_SECRET_ACCESS_KEY
+#     bucket: $S3_BUCKET_NAME
+#     region: $AWS_DEFAULT_REGION
+#     skip_cleanup: true
+#     local_dir: dist
+#     cache_control: "max-age=21600"
+#     on:
+#       branch: master
+
+#   # Staging Deploy
+#   - provider: s3
+#     access_key_id: $AWS_ACCESS_KEY_ID
+#     secret_access_key: $AWS_SECRET_ACCESS_KEY
+#     bucket: $S3_STAGING_BUCKET_NAME
+#     region: $AWS_DEFAULT_REGION
+#     skip_cleanup: true
+#     local_dir: dist
+#     cache_control: "max-age=21600"
+#     on:
+#       branch: staging
+# after_deploy:
+#   - aws configure set preview.cloudfront true
+#   - test $TRAVIS_BRANCH = "master" && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+#   - test $TRAVIS_BRANCH = "staging" && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_STAGING_DISTRIBUTION_ID --paths "/*"
