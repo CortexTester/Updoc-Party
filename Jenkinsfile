@@ -1,8 +1,9 @@
 pipeline {
     environment {
-        registry = "tester8cortex/updoc-party"
+        imageName = "tester8cortex/updoc-party"
+        version = "1.0.0"
         registryCredential = "dockerhub"
-        dockerImage = ""
+        appImage = ""
     }
     agent any
 
@@ -14,9 +15,7 @@ pipeline {
         }
         stage('Build image') {
             steps {
-                script {
-                    dockerImage = docker.build registry + ":1.0.0" 
-                }
+                sh "docker build -t ${imageName}:${version} ."
             }
         }
         stage('Test') {
@@ -26,11 +25,7 @@ pipeline {
         }
         stage('push image') {    
             steps {     
-                script {
-                    docker.withRegistry( ‘’, registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
+                sh "docker push ${imageName}:${version}"
             }
         }
     }
