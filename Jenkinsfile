@@ -7,7 +7,7 @@ pipeline {
     agent any
 
     stages {
-        stage(‘Cloning Git’) {
+        stage('Cloning Git') {
            checkout scm
         }
         stage('Build image') {
@@ -20,7 +20,7 @@ pipeline {
                 echo 'Testing..'
             }
         }
-        stage('push image') {
+        stage('Push image') {
             def PACKAGE_VERSION=sh (
                 script:'grep version package.json | cut -c 15- | rev | cut -c 3- |rev',
                 returnStdout: true
