@@ -1,13 +1,13 @@
 node {
-    def   registry = "tester8cortex/updoc-party"
-    def   registryCredential = "dockerhub"
-    def   dockerImage = ""
+    def   registry = 'tester8cortex/updoc-party'
+    def   registryCredential = 'dockerhub'
+    def   dockerImage = ''
 
     stage('Cloning Git') {
         checkout scm
     }
     stage('Build image') {
-        dockerImage = docker.build registry 
+        dockerImage = docker.build("${registry}")
     }
     stage('Test') {
         echo 'Testing..'
