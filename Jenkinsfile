@@ -2,9 +2,9 @@ node ('docker'){
     def registry = ''
     def app
     try{
-        stage('clone repository'{
+        stage('clone repository'){
             checkout scm
-        })
+        }
         stage('build image'){
             app = docker.build('tester8cortex/updoc-party')
         }
