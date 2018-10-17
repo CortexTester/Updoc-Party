@@ -22,7 +22,7 @@ node ('docker'){
             
         }
     }
-    finanly{
+    finally{
         sh 'docker system prune -a'
         sh 'npm prune'
         sh 'docker rmi \$(docker images -q --filter=reference=tester8cortex/updoc-party:*) -f'
