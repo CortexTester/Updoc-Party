@@ -17,11 +17,12 @@
 //                 script: 'grep version package.json | cut -c 15- | rev | cut -c 3- | rev',
 //                 returnStdout: true
 //             ).trim()
-//             sh "echo 'version' + ${VERSION}"
-//             // app.push()
-//             // docker.withRegistry('', "${registryCredential}"){
-//                 // app.push("${VERSION}")
-//             // }            
+//             app.push()
+// /* below version is not working
+//             sh "echo 'version' + ${VERSION}"            
+//             docker.withRegistry('', "${registryCredential}"){
+//                 app.push("${VERSION}")
+//             }   */         
 //         }
 //     }
 //     catch (error) {
