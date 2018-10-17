@@ -22,9 +22,10 @@ node ('docker'){
         // }
     }
     catch (error) {
-       stage "Cleanup after fail"
-       sh "echo ${error}"
-       throw error
+       stage "Cleanup after fail"{
+            sh "echo ${error}"
+            throw error
+       }       
    }
     finally{
         sh 'docker system prune -a'
