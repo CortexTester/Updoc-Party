@@ -1,12 +1,13 @@
 node ('docker'){
-    def registry = ''
+    def registry = 'tester8cortex/updoc-party'
+    def registryCredential = 'dockerhub'
     def app
     try{
         stage('clone repository'){
             checkout scm
         }
         stage('build image'){
-            app = docker.build('tester8cortex/updoc-party')
+            app = docker.build("${registry}")
         }
         stage('run unit testing'){
             sh "echo 'Testing...'"
@@ -16,7 +17,7 @@ node ('docker'){
                 script: 'grep version package.json | cut -c 15- | rev | cut -c 3- | rev',
                 returnStdout: true
             ).trim()
-            docker.withRegistry('https://hub.docker.com/', 'dockerhub'){
+            docker.withRegistry('', "${registryCredential}"){
                 app.push("${VERSION}")
             }            
         }
