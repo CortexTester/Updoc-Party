@@ -8,9 +8,9 @@ node ('docker'){
         stage('build image'){
             app = docker.build('tester8cortex/updoc-party')
         }
-        stage('run unit testing'){
-            echo 'Testing..'
-        }
+        // stage('run unit testing'){
+        //     sh 'echo "Testing..."'
+        // }
         stage('push image'){
             def VERSION = sh (
                 script:'grep version package.json | cut -c 15- |rev | cut -c 3- | rev',
