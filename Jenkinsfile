@@ -17,8 +17,9 @@ node ('docker'){
                 script: 'grep version package.json | cut -c 15- | rev | cut -c 3- | rev',
                 returnStdout: true
             ).trim()
+            app.push()
             // docker.withRegistry('', "${registryCredential}"){
-                app.push("${VERSION}")
+                // app.push("${VERSION}")
             // }            
         }
     }
