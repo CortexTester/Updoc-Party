@@ -13,7 +13,7 @@ node ('docker'){
             sh "echo 'Testing...'"
         }
         stage('push image'){
-            docker.logout()
+            // docker.logout()
             def VERSION = sh (
                 script: 'grep version package.json | cut -c 15- | rev | cut -c 3- | rev',
                 returnStdout: true
